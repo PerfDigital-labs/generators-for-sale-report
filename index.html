@@ -11,10 +11,174 @@
 
 <body>
 
-  <main>
-    <h1>Generators for Sale</h1>
-    <p>Campaign Performance Dashboard</p>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo-placeholder">GFS</div>
+
+      <div>
+        <h1>Generators for Sale</h1>
+        <p>Campaign Performance Dashboard</p>
+      </div>
+    </div>
+
+    <div class="freshness">
+      Data through:
+      <strong id="latest-date">Loading...</strong>
+    </div>
+  </header>
+
+
+  <main class="dashboard">
+
+    <!-- FILTERS -->
+    <section class="filters">
+
+      <div class="filter-group">
+        <label>Market</label>
+
+        <div class="button-group">
+          <button class="filter-button active" data-market="all">
+            Both Markets
+          </button>
+
+          <button class="filter-button" data-market="53305">
+            Omaha
+          </button>
+
+          <button class="filter-button" data-market="53313">
+            Kansas City
+          </button>
+        </div>
+      </div>
+
+
+      <div class="filter-group">
+        <label>Channel</label>
+
+        <select id="channel-filter">
+          <option value="all">All Channels</option>
+          <option value="CTV">CTV</option>
+          <option value="Native">Native</option>
+          <option value="Display">Display</option>
+        </select>
+      </div>
+
+
+      <div class="filter-group date-group">
+        <div>
+          <label for="start-date">Start Date</label>
+          <input type="date" id="start-date">
+        </div>
+
+        <div>
+          <label for="end-date">End Date</label>
+          <input type="date" id="end-date">
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- EXECUTIVE OVERVIEW -->
+    <section class="section">
+
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">Executive Overview</span>
+          <h2>Campaign Performance</h2>
+        </div>
+
+        <p id="view-label">
+          Both Markets
+        </p>
+      </div>
+
+
+      <div class="kpi-grid">
+
+        <article class="kpi-card">
+          <span>Impressions</span>
+          <strong id="kpi-impressions">—</strong>
+        </article>
+
+        <article class="kpi-card">
+          <span>Clicks</span>
+          <strong id="kpi-clicks">—</strong>
+        </article>
+
+        <article class="kpi-card">
+          <span>Spend</span>
+          <strong id="kpi-spend">—</strong>
+        </article>
+
+        <article class="kpi-card">
+          <span>Conversions</span>
+          <strong id="kpi-conversions">—</strong>
+        </article>
+
+        <article class="kpi-card">
+          <span>CTR</span>
+          <strong id="kpi-ctr">—</strong>
+        </article>
+
+        <article class="kpi-card">
+          <span>CPM</span>
+          <strong id="kpi-cpm">—</strong>
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- MARKET STORY -->
+    <section class="section">
+
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">Market Story</span>
+          <h2>Omaha vs Kansas City</h2>
+        </div>
+      </div>
+
+      <div class="market-grid">
+
+        <article class="market-card">
+          <span class="market-name">Omaha</span>
+          <strong id="omaha-impressions">—</strong>
+          <span class="market-metric">Impressions</span>
+        </article>
+
+        <article class="market-card">
+          <span class="market-name">Kansas City</span>
+          <strong id="kc-impressions">—</strong>
+          <span class="market-metric">Impressions</span>
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- FUTURE SECTIONS -->
+    <section class="section coming-next">
+
+      <span class="eyebrow">Coming Next</span>
+
+      <div class="section-list">
+        <span>Performance Over Time</span>
+        <span>Channel Performance</span>
+        <span>Conversions</span>
+        <span>Audience</span>
+        <span>CTV & Video</span>
+        <span>Ad Breakdown</span>
+        <span>AI Insights</span>
+      </div>
+
+    </section>
+
   </main>
+
 
   <script src="config.js"></script>
   <script src="app.js"></script>
