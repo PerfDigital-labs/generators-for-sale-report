@@ -12,7 +12,7 @@
 
   <link
     rel="stylesheet"
-    href="./styles.css?v=6"
+    href="./styles.css?v=7"
   >
 </head>
 
@@ -59,9 +59,7 @@
   <main class="dashboard">
 
 
-    <!-- =====================================================
-         FILTERS
-    ====================================================== -->
+    <!-- FILTERS -->
 
     <section class="filters">
 
@@ -165,9 +163,7 @@
     </section>
 
 
-    <!-- =====================================================
-         EXECUTIVE OVERVIEW
-    ====================================================== -->
+    <!-- EXECUTIVE OVERVIEW -->
 
     <section class="section">
 
@@ -195,80 +191,33 @@
       <div class="kpi-grid">
 
         <article class="kpi-card">
-
-          <span>
-            Impressions
-          </span>
-
-          <strong id="kpi-impressions">
-            —
-          </strong>
-
+          <span>Impressions</span>
+          <strong id="kpi-impressions">—</strong>
         </article>
 
-
         <article class="kpi-card">
-
-          <span>
-            Clicks
-          </span>
-
-          <strong id="kpi-clicks">
-            —
-          </strong>
-
+          <span>Clicks</span>
+          <strong id="kpi-clicks">—</strong>
         </article>
 
-
         <article class="kpi-card">
-
-          <span>
-            Spend
-          </span>
-
-          <strong id="kpi-spend">
-            —
-          </strong>
-
+          <span>Spend</span>
+          <strong id="kpi-spend">—</strong>
         </article>
 
-
         <article class="kpi-card">
-
-          <span>
-            Conversions
-          </span>
-
-          <strong id="kpi-conversions">
-            —
-          </strong>
-
+          <span>Conversions</span>
+          <strong id="kpi-conversions">—</strong>
         </article>
 
-
         <article class="kpi-card">
-
-          <span>
-            CTR
-          </span>
-
-          <strong id="kpi-ctr">
-            —
-          </strong>
-
+          <span>CTR</span>
+          <strong id="kpi-ctr">—</strong>
         </article>
 
-
         <article class="kpi-card">
-
-          <span>
-            CPM
-          </span>
-
-          <strong id="kpi-cpm">
-            —
-          </strong>
-
+          <span>CPM</span>
+          <strong id="kpi-cpm">—</strong>
         </article>
 
       </div>
@@ -276,23 +225,21 @@
     </section>
 
 
-    <!-- =====================================================
-         PERFORMANCE OVER TIME
-    ====================================================== -->
+    <!-- PERFORMANCE OVER TIME -->
 
-    <section class="section">
+    <section class="section trend-section">
 
-      <div class="section-heading">
+      <div class="trend-heading">
 
         <div>
 
-          <span class="eyebrow">
-            Performance Over Time
-          </span>
-
           <h2>
-            Campaign Trend
+            Daily performance
           </h2>
+
+          <p class="chart-subtitle">
+            Daily performance for the selected date range and channel
+          </p>
 
         </div>
 
@@ -328,6 +275,40 @@
       </div>
 
 
+      <!-- CUSTOM LEGEND -->
+
+      <div
+        class="trend-legend"
+        id="trend-legend"
+      >
+
+        <span
+          class="legend-item"
+          id="legend-combined"
+        >
+          <i class="legend-line combined"></i>
+          Combined
+        </span>
+
+        <span
+          class="legend-item"
+          id="legend-omaha"
+        >
+          <i class="legend-line omaha"></i>
+          Omaha
+        </span>
+
+        <span
+          class="legend-item"
+          id="legend-kc"
+        >
+          <i class="legend-line kc"></i>
+          Kansas City
+        </span>
+
+      </div>
+
+
       <div class="chart-container">
 
         <canvas id="performance-chart"></canvas>
@@ -337,9 +318,7 @@
     </section>
 
 
-    <!-- =====================================================
-         MARKET STORY
-    ====================================================== -->
+    <!-- MARKET STORY -->
 
     <section class="section">
 
@@ -400,9 +379,7 @@
     </section>
 
 
-    <!-- =====================================================
-         COMING NEXT
-    ====================================================== -->
+    <!-- COMING NEXT -->
 
     <section class="section coming-next">
 
@@ -412,29 +389,12 @@
 
       <div class="section-list">
 
-        <span>
-          Channel Performance
-        </span>
-
-        <span>
-          Conversions
-        </span>
-
-        <span>
-          Audience
-        </span>
-
-        <span>
-          CTV &amp; Video
-        </span>
-
-        <span>
-          Ad Breakdown
-        </span>
-
-        <span>
-          AI Insights
-        </span>
+        <span>Channel Performance</span>
+        <span>Conversions</span>
+        <span>Audience</span>
+        <span>CTV &amp; Video</span>
+        <span>Ad Breakdown</span>
+        <span>AI Insights</span>
 
       </div>
 
@@ -444,12 +404,10 @@
   </main>
 
 
-  <!-- Chart library -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <!-- Dashboard files -->
-  <script src="./config.js?v=6"></script>
-  <script src="./app.js?v=6"></script>
+  <script src="./config.js?v=7"></script>
+  <script src="./app.js?v=7"></script>
 
 </body>
 </html>
