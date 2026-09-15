@@ -3,68 +3,46 @@ document.addEventListener(
   async () => {
 
 
-    /* =====================================================
-       ELEMENTS
-    ===================================================== */
+    /* ELEMENTS */
 
     const latestDateElement =
-      document.getElementById(
-        "latest-date"
-      );
-
+      document.getElementById("latest-date");
 
     const startDateInput =
-      document.getElementById(
-        "start-date"
-      );
-
+      document.getElementById("start-date");
 
     const endDateInput =
-      document.getElementById(
-        "end-date"
-      );
-
+      document.getElementById("end-date");
 
     const channelFilter =
-      document.getElementById(
-        "channel-filter"
-      );
-
+      document.getElementById("channel-filter");
 
     const marketButtons =
-      document.querySelectorAll(
-        "[data-market]"
-      );
-
+      document.querySelectorAll("[data-market]");
 
     const viewLabel =
-      document.getElementById(
-        "view-label"
-      );
-
+      document.getElementById("view-label");
 
     const printButton =
-      document.getElementById(
-        "print-report"
-      );
-
+      document.getElementById("print-report");
 
     const trendMetric =
-      document.getElementById(
-        "trend-metric"
-      );
-
+      document.getElementById("trend-metric");
 
     const performanceCanvas =
-      document.getElementById(
-        "performance-chart"
-      );
+      document.getElementById("performance-chart");
+
+    const legendCombined =
+      document.getElementById("legend-combined");
+
+    const legendOmaha =
+      document.getElementById("legend-omaha");
+
+    const legendKC =
+      document.getElementById("legend-kc");
 
 
-
-    /* =====================================================
-       STATE
-    ===================================================== */
+    /* STATE */
 
     let campaignRows = [];
 
@@ -78,10 +56,7 @@ document.addEventListener(
       null;
 
 
-
-    /* =====================================================
-       FORMATTERS
-    ===================================================== */
+    /* FORMATTERS */
 
     const wholeNumberFormatter =
       new Intl.NumberFormat(
@@ -97,11 +72,8 @@ document.addEventListener(
         "en-US",
         {
           style: "currency",
-
           currency: "USD",
-
           minimumFractionDigits: 2,
-
           maximumFractionDigits: 2
         }
       );
@@ -112,7 +84,6 @@ document.addEventListener(
         "en-US",
         {
           minimumFractionDigits: 2,
-
           maximumFractionDigits: 2
         }
       );
@@ -123,11 +94,8 @@ document.addEventListener(
         "en-US",
         {
           month: "short",
-
           day: "numeric",
-
           year: "numeric",
-
           timeZone: "UTC"
         }
       );
@@ -138,28 +106,20 @@ document.addEventListener(
         "en-US",
         {
           month: "short",
-
           day: "numeric",
-
           timeZone: "UTC"
         }
       );
 
 
-
-    /* =====================================================
-       HELPERS
-    ===================================================== */
+    /* HELPERS */
 
     function getChannel(row) {
 
       const campaign =
         REPORT_CONFIG.campaigns[
-          String(
-            row.campaign_id
-          )
+          String(row.campaign_id)
         ];
-
 
       return campaign
         ? campaign.channel
@@ -168,89 +128,57 @@ document.addEventListener(
     }
 
 
+    function getMarketLabel(market) {
 
-    function getMarketLabel(
-      market
-    ) {
-
-      if (
-        market === "53305"
-      ) {
-
+      if (market === "53305") {
         return "Omaha";
-
       }
 
-
-      if (
-        market === "53313"
-      ) {
-
+      if (market === "53313") {
         return "Kansas City";
-
       }
-
 
       return "Both Markets";
 
     }
 
 
-
     function formatDisplayDate(
       dateString
     ) {
 
-      if (
-        !dateString
-      ) {
-
+      if (!dateString) {
         return "—";
-
       }
 
-
-      const date =
+      return dateFormatter.format(
         new Date(
           `${dateString}T00:00:00Z`
-        );
-
-
-      return dateFormatter.format(
-        date
+        )
       );
 
     }
-
 
 
     function formatShortDate(
       dateString
     ) {
 
-      const date =
+      return shortDateFormatter.format(
         new Date(
           `${dateString}T00:00:00Z`
-        );
-
-
-      return shortDateFormatter.format(
-        date
+        )
       );
 
     }
 
 
-
-    /* =====================================================
-       FILTERING
-    ===================================================== */
+    /* FILTERS */
 
     function getRowsForDateAndChannel() {
 
       const startDate =
         startDateInput.value;
-
 
       const endDate =
         endDateInput.value;
@@ -259,14 +187,11 @@ document.addEventListener(
       return campaignRows.filter(
         row => {
 
-
           if (
             startDate &&
             row.date < startDate
           ) {
-
             return false;
-
           }
 
 
@@ -274,19 +199,16 @@ document.addEventListener(
             endDate &&
             row.date > endDate
           ) {
-
             return false;
-
           }
 
 
           if (
             selectedChannel !== "all" &&
-            getChannel(row) !== selectedChannel
+            getChannel(row) !==
+            selectedChannel
           ) {
-
             return false;
-
           }
 
 
@@ -298,30 +220,21 @@ document.addEventListener(
     }
 
 
-
     function getFilteredRows() {
 
       return getRowsForDateAndChannel()
         .filter(
           row => {
 
-
             if (
               selectedMarket === "all"
             ) {
-
               return true;
-
             }
 
-
             return (
-              String(
-                row.journey_id
-              ) ===
-              String(
-                selectedMarket
-              )
+              String(row.journey_id) ===
+              String(selectedMarket)
             );
 
           }
@@ -330,57 +243,41 @@ document.addEventListener(
     }
 
 
+    /* AGGREGATE */
 
-    /* =====================================================
-       AGGREGATION
-    ===================================================== */
-
-    function aggregateRows(
-      rows
-    ) {
+    function aggregateRows(rows) {
 
       const totals =
         rows.reduce(
-          (
-            result,
-            row
-          ) => {
-
+          (result, row) => {
 
             result.impressions +=
               Number(
                 row.impressions || 0
               );
 
-
             result.clicks +=
               Number(
                 row.clicks || 0
               );
-
 
             result.spend +=
               Number(
                 row.spend || 0
               );
 
-
             result.conversions +=
               Number(
                 row.conversions || 0
               );
-
 
             return result;
 
           },
           {
             impressions: 0,
-
             clicks: 0,
-
             spend: 0,
-
             conversions: 0
           }
         );
@@ -409,20 +306,13 @@ document.addEventListener(
     }
 
 
-
-    /* =====================================================
-       EXECUTIVE OVERVIEW
-    ===================================================== */
+    /* KPIS */
 
     function updateExecutiveOverview() {
 
-      const filteredRows =
-        getFilteredRows();
-
-
       const totals =
         aggregateRows(
-          filteredRows
+          getFilteredRows()
         );
 
 
@@ -482,54 +372,33 @@ document.addEventListener(
     }
 
 
-
-    /* =====================================================
-       MARKET COMPARISON
-    ===================================================== */
+    /* MARKET COMPARISON */
 
     function updateMarketComparison() {
-
-      /*
-        This comparison respects:
-
-        - Date
-        - Channel
-
-        It intentionally continues showing both
-        Omaha and Kansas City side-by-side.
-      */
 
       const rows =
         getRowsForDateAndChannel();
 
 
-      const omahaRows =
-        rows.filter(
-          row =>
-            String(
-              row.journey_id
-            ) === "53305"
-        );
-
-
-      const kansasCityRows =
-        rows.filter(
-          row =>
-            String(
-              row.journey_id
-            ) === "53313"
-        );
-
-
       const omaha =
         aggregateRows(
-          omahaRows
+          rows.filter(
+            row =>
+              String(
+                row.journey_id
+              ) === "53305"
+          )
         );
 
 
-      const kansasCity =
+      const kc =
         aggregateRows(
-          kansasCityRows
+          rows.filter(
+            row =>
+              String(
+                row.journey_id
+              ) === "53313"
+          )
         );
 
 
@@ -545,16 +414,13 @@ document.addEventListener(
         "kc-impressions"
       ).textContent =
         wholeNumberFormatter.format(
-          kansasCity.impressions
+          kc.impressions
         );
 
     }
 
 
-
-    /* =====================================================
-       DAILY CHART DATA
-    ===================================================== */
+    /* DAILY DATA */
 
     function groupDaily(
       rows,
@@ -567,22 +433,11 @@ document.addEventListener(
       rows.forEach(
         row => {
 
-
-          const date =
-            row.date;
-
-
-          if (
-            !daily[date]
-          ) {
-
-            daily[date] =
-              0;
-
+          if (!daily[row.date]) {
+            daily[row.date] = 0;
           }
 
-
-          daily[date] +=
+          daily[row.date] +=
             Number(
               row[metric] || 0
             );
@@ -596,10 +451,56 @@ document.addEventListener(
     }
 
 
+    /* LEGEND */
 
-    /* =====================================================
-       PERFORMANCE CHART
-    ===================================================== */
+    function updateTrendLegend() {
+
+      legendCombined.classList.remove(
+        "is-hidden"
+      );
+
+      legendOmaha.classList.remove(
+        "is-hidden"
+      );
+
+      legendKC.classList.remove(
+        "is-hidden"
+      );
+
+
+      if (
+        selectedMarket === "53305"
+      ) {
+
+        legendCombined.classList.add(
+          "is-hidden"
+        );
+
+        legendKC.classList.add(
+          "is-hidden"
+        );
+
+      }
+
+
+      if (
+        selectedMarket === "53313"
+      ) {
+
+        legendCombined.classList.add(
+          "is-hidden"
+        );
+
+        legendOmaha.classList.add(
+          "is-hidden"
+        );
+
+      }
+
+    }
+
+
+    /* CHART */
 
     function updatePerformanceChart() {
 
@@ -607,9 +508,7 @@ document.addEventListener(
         !performanceCanvas ||
         typeof Chart === "undefined"
       ) {
-
         return;
-
       }
 
 
@@ -630,7 +529,7 @@ document.addEventListener(
         );
 
 
-      const kansasCityRows =
+      const kcRows =
         rows.filter(
           row =>
             String(
@@ -653,9 +552,9 @@ document.addEventListener(
         );
 
 
-      const kansasCityDaily =
+      const kcDaily =
         groupDaily(
-          kansasCityRows,
+          kcRows,
           metric
         );
 
@@ -664,8 +563,7 @@ document.addEventListener(
         [
           ...new Set(
             rows.map(
-              row =>
-                row.date
+              row => row.date
             )
           )
         ].sort();
@@ -674,18 +572,12 @@ document.addEventListener(
       const labels =
         dates.map(
           date =>
-            formatShortDate(
-              date
-            )
+            formatShortDate(date)
         );
 
 
       let datasets = [];
 
-
-      /*
-        BOTH MARKETS
-      */
 
       if (
         selectedMarket === "all"
@@ -694,8 +586,7 @@ document.addEventListener(
         datasets = [
 
           {
-            label:
-              "Combined",
+            label: "Combined",
 
             data:
               dates.map(
@@ -712,22 +603,21 @@ document.addEventListener(
               "#0066cc",
 
             borderWidth:
-              3,
+              2.5,
 
             tension:
-              0.25,
+              0.2,
 
             pointRadius:
               0,
 
             pointHoverRadius:
-              4
+              3
           },
 
 
           {
-            label:
-              "Omaha",
+            label: "Omaha",
 
             data:
               dates.map(
@@ -747,13 +637,13 @@ document.addEventListener(
               2,
 
             tension:
-              0.25,
+              0.2,
 
             pointRadius:
               0,
 
             pointHoverRadius:
-              4
+              3
           },
 
 
@@ -764,7 +654,7 @@ document.addEventListener(
             data:
               dates.map(
                 date =>
-                  kansasCityDaily[
+                  kcDaily[
                     date
                   ] || 0
               ),
@@ -779,24 +669,19 @@ document.addEventListener(
               2,
 
             tension:
-              0.25,
+              0.2,
 
             pointRadius:
               0,
 
             pointHoverRadius:
-              4
+              3
           }
 
         ];
 
       }
 
-
-
-      /*
-        OMAHA ONLY
-      */
 
       if (
         selectedMarket === "53305"
@@ -805,8 +690,7 @@ document.addEventListener(
         datasets = [
 
           {
-            label:
-              "Omaha",
+            label: "Omaha",
 
             data:
               dates.map(
@@ -817,33 +701,28 @@ document.addEventListener(
               ),
 
             borderColor:
-              "#0066cc",
+              "#00aeea",
 
             backgroundColor:
-              "#0066cc",
+              "#00aeea",
 
             borderWidth:
-              3,
+              2.5,
 
             tension:
-              0.25,
+              0.2,
 
             pointRadius:
               0,
 
             pointHoverRadius:
-              4
+              3
           }
 
         ];
 
       }
 
-
-
-      /*
-        KANSAS CITY ONLY
-      */
 
       if (
         selectedMarket === "53313"
@@ -858,28 +737,28 @@ document.addEventListener(
             data:
               dates.map(
                 date =>
-                  kansasCityDaily[
+                  kcDaily[
                     date
                   ] || 0
               ),
 
             borderColor:
-              "#0066cc",
+              "#667085",
 
             backgroundColor:
-              "#0066cc",
+              "#667085",
 
             borderWidth:
-              3,
+              2.5,
 
             tension:
-              0.25,
+              0.2,
 
             pointRadius:
               0,
 
             pointHoverRadius:
-              4
+              3
           }
 
         ];
@@ -887,15 +766,9 @@ document.addEventListener(
       }
 
 
-
-      if (
-        performanceChart
-      ) {
-
+      if (performanceChart) {
         performanceChart.destroy();
-
       }
-
 
 
       performanceChart =
@@ -906,77 +779,49 @@ document.addEventListener(
             type:
               "line",
 
-
             data: {
-
               labels,
-
               datasets
-
             },
-
 
             options: {
 
               responsive:
                 true,
 
-
               maintainAspectRatio:
                 false,
 
-
-              animation: {
-                duration: 250
-              },
-
-
               interaction: {
-
                 mode:
                   "index",
 
                 intersect:
                   false
+              },
+
+              layout: {
+
+                padding: {
+                  top: 2,
+                  right: 4,
+                  bottom: 0,
+                  left: 0
+                }
 
               },
 
-
               plugins: {
 
-
                 legend: {
-
-                  position:
-                    "top",
-
-                  align:
-                    "start",
-
-                  labels: {
-
-                    usePointStyle:
-                      true,
-
-                    boxWidth:
-                      8,
-
-                    padding:
-                      18
-
-                  }
-
+                  display: false
                 },
-
 
                 tooltip: {
 
                   callbacks: {
 
-                    label(
-                      context
-                    ) {
-
+                    label(context) {
 
                       const value =
                         Number(
@@ -1013,50 +858,34 @@ document.addEventListener(
 
               },
 
-
               scales: {
-
 
                 y: {
 
                   beginAtZero:
                     true,
 
-
-                  grid: {
-
-                    color:
-                      "#eef1f5"
-
+                  border: {
+                    display: false
                   },
 
+                  grid: {
+                    color:
+                      "#e9edf2"
+                  },
 
                   ticks: {
 
-                    callback(
-                      value
-                    ) {
+                    color:
+                      "#738096",
 
+                    font: {
+                      size: 11
+                    },
 
-                      if (
-                        metric === "spend"
-                      ) {
+                    padding: 6,
 
-                        return (
-                          "$" +
-                          wholeNumberFormatter.format(
-                            value
-                          )
-                        );
-
-                      }
-
-
-                      return wholeNumberFormatter.format(
-                        value
-                      );
-
-                    }
+                    maxTicksLimit: 5
 
                   }
 
@@ -1065,21 +894,28 @@ document.addEventListener(
 
                 x: {
 
-                  grid: {
-
-                    display:
-                      false
-
+                  border: {
+                    display: false
                   },
 
+                  grid: {
+                    display: false
+                  },
 
                   ticks: {
 
-                    maxTicksLimit:
-                      12,
+                    color:
+                      "#738096",
 
-                    maxRotation:
-                      0
+                    font: {
+                      size: 11
+                    },
+
+                    maxTicksLimit: 10,
+
+                    maxRotation: 0,
+
+                    padding: 6
 
                   }
 
@@ -1092,13 +928,13 @@ document.addEventListener(
           }
         );
 
+
+      updateTrendLegend();
+
     }
 
 
-
-    /* =====================================================
-       UPDATE EVERYTHING
-    ===================================================== */
+    /* UPDATE */
 
     function updateDashboard() {
 
@@ -1111,34 +947,24 @@ document.addEventListener(
     }
 
 
-
-    /* =====================================================
-       MARKET BUTTONS
-    ===================================================== */
+    /* MARKET */
 
     marketButtons.forEach(
       button => {
 
-
         button.addEventListener(
           "click",
           () => {
-
 
             selectedMarket =
               button.dataset.market;
 
 
             marketButtons.forEach(
-              otherButton => {
-
+              otherButton =>
                 otherButton
                   .classList
-                  .remove(
-                    "active"
-                  );
-
-              }
+                  .remove("active")
             );
 
 
@@ -1156,19 +982,14 @@ document.addEventListener(
     );
 
 
-
-    /* =====================================================
-       CHANNEL FILTER
-    ===================================================== */
+    /* CHANNEL */
 
     channelFilter.addEventListener(
       "change",
       () => {
 
-
         selectedChannel =
           channelFilter.value;
-
 
         updateDashboard();
 
@@ -1176,102 +997,45 @@ document.addEventListener(
     );
 
 
-
-    /* =====================================================
-       DATE FILTERS
-    ===================================================== */
+    /* DATES */
 
     startDateInput.addEventListener(
       "change",
-      () => {
-
-
-        if (
-          endDateInput.value &&
-          startDateInput.value >
-          endDateInput.value
-        ) {
-
-          endDateInput.value =
-            startDateInput.value;
-
-        }
-
-
-        updateDashboard();
-
-      }
+      updateDashboard
     );
 
 
     endDateInput.addEventListener(
       "change",
-      () => {
-
-
-        if (
-          startDateInput.value &&
-          endDateInput.value <
-          startDateInput.value
-        ) {
-
-          startDateInput.value =
-            endDateInput.value;
-
-        }
-
-
-        updateDashboard();
-
-      }
+      updateDashboard
     );
 
 
-
-    /* =====================================================
-       TREND METRIC
-    ===================================================== */
+    /* METRIC */
 
     trendMetric.addEventListener(
       "change",
+      updatePerformanceChart
+    );
+
+
+    /* PRINT */
+
+    printButton.addEventListener(
+      "click",
       () => {
 
-        updatePerformanceChart();
+        window.print();
 
       }
     );
 
 
-
-    /* =====================================================
-       PRINT
-    ===================================================== */
-
-    if (
-      printButton
-    ) {
-
-      printButton.addEventListener(
-        "click",
-        () => {
-
-          window.print();
-
-        }
-      );
-
-    }
-
-
-
-    /* =====================================================
-       LOAD REPORT DATA
-    ===================================================== */
+    /* LOAD DATA */
 
     async function loadReportData() {
 
       try {
-
 
         latestDateElement.textContent =
           "Loading...";
@@ -1281,20 +1045,16 @@ document.addEventListener(
           await fetch(
             REPORT_CONFIG.apiUrl,
             {
-
               method:
                 "GET",
 
               cache:
                 "no-store"
-
             }
           );
 
 
-        if (
-          !response.ok
-        ) {
+        if (!response.ok) {
 
           throw new Error(
             `API returned ${response.status}`
@@ -1308,14 +1068,13 @@ document.addEventListener(
 
 
         if (
-          !data ||
           !Array.isArray(
             data.campaign_daily
           )
         ) {
 
           throw new Error(
-            "campaign_daily was not returned by the API."
+            "campaign_daily missing"
           );
 
         }
@@ -1336,19 +1095,11 @@ document.addEventListener(
             .at(-1);
 
 
-        /*
-          Keep Jan 1 available as the reporting
-          start even though campaign delivery
-          begins later.
-        */
-
         startDateInput.min =
           "2026-01-01";
 
-
         startDateInput.max =
           latestDate;
-
 
         startDateInput.value =
           "2026-01-01";
@@ -1357,10 +1108,8 @@ document.addEventListener(
         endDateInput.min =
           "2026-01-01";
 
-
         endDateInput.max =
           latestDate;
-
 
         endDateInput.value =
           latestDate;
@@ -1377,16 +1126,9 @@ document.addEventListener(
       }
 
 
-      catch (
-        error
-      ) {
+      catch (error) {
 
-
-        console.error(
-          "Unable to load report data:",
-          error
-        );
-
+        console.error(error);
 
         latestDateElement.textContent =
           "Data unavailable";
@@ -1396,13 +1138,7 @@ document.addEventListener(
     }
 
 
-
-    /* =====================================================
-       START
-    ===================================================== */
-
     await loadReportData();
-
 
   }
 );
