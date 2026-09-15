@@ -12,7 +12,7 @@
 
   <link
     rel="stylesheet"
-    href="./styles.css?v=3"
+    href="./styles.css?v=6"
   >
 </head>
 
@@ -59,7 +59,9 @@
   <main class="dashboard">
 
 
-    <!-- FILTERS -->
+    <!-- =====================================================
+         FILTERS
+    ====================================================== -->
 
     <section class="filters">
 
@@ -163,7 +165,9 @@
     </section>
 
 
-    <!-- EXECUTIVE OVERVIEW -->
+    <!-- =====================================================
+         EXECUTIVE OVERVIEW
+    ====================================================== -->
 
     <section class="section">
 
@@ -181,7 +185,6 @@
 
         </div>
 
-
         <p id="view-label">
           Both Markets
         </p>
@@ -190,7 +193,6 @@
 
 
       <div class="kpi-grid">
-
 
         <article class="kpi-card">
 
@@ -269,13 +271,75 @@
 
         </article>
 
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         PERFORMANCE OVER TIME
+    ====================================================== -->
+
+    <section class="section">
+
+      <div class="section-heading">
+
+        <div>
+
+          <span class="eyebrow">
+            Performance Over Time
+          </span>
+
+          <h2>
+            Campaign Trend
+          </h2>
+
+        </div>
+
+
+        <div class="chart-control">
+
+          <label for="trend-metric">
+            Metric
+          </label>
+
+          <select id="trend-metric">
+
+            <option value="impressions">
+              Impressions
+            </option>
+
+            <option value="clicks">
+              Clicks
+            </option>
+
+            <option value="spend">
+              Spend
+            </option>
+
+            <option value="conversions">
+              Conversions
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <div class="chart-container">
+
+        <canvas id="performance-chart"></canvas>
 
       </div>
 
     </section>
 
 
-    <!-- MARKET STORY -->
+    <!-- =====================================================
+         MARKET STORY
+    ====================================================== -->
 
     <section class="section">
 
@@ -297,7 +361,6 @@
 
 
       <div class="market-grid">
-
 
         <article class="market-card">
 
@@ -332,13 +395,14 @@
 
         </article>
 
-
       </div>
 
     </section>
 
 
-    <!-- FUTURE SECTIONS -->
+    <!-- =====================================================
+         COMING NEXT
+    ====================================================== -->
 
     <section class="section coming-next">
 
@@ -347,10 +411,6 @@
       </span>
 
       <div class="section-list">
-
-        <span>
-          Performance Over Time
-        </span>
 
         <span>
           Channel Performance
@@ -383,8 +443,13 @@
 
   </main>
 
-<script src="./config.js?v=4"></script>
-<script src="./app.js?v=4"></script>
+
+  <!-- Chart library -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Dashboard files -->
+  <script src="./config.js?v=6"></script>
+  <script src="./app.js?v=6"></script>
 
 </body>
 </html>
