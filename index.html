@@ -12,7 +12,7 @@
 
   <link
     rel="stylesheet"
-    href="./styles.css?v=7"
+    href="./styles.css?v=8"
   >
 </head>
 
@@ -201,11 +201,6 @@
         </article>
 
         <article class="kpi-card">
-          <span>Spend</span>
-          <strong id="kpi-spend">—</strong>
-        </article>
-
-        <article class="kpi-card">
           <span>Conversions</span>
           <strong id="kpi-conversions">—</strong>
         </article>
@@ -213,11 +208,6 @@
         <article class="kpi-card">
           <span>CTR</span>
           <strong id="kpi-ctr">—</strong>
-        </article>
-
-        <article class="kpi-card">
-          <span>CPM</span>
-          <strong id="kpi-cpm">—</strong>
         </article>
 
       </div>
@@ -258,10 +248,6 @@
 
             <option value="clicks">
               Clicks
-            </option>
-
-            <option value="spend">
-              Spend
             </option>
 
             <option value="conversions">
@@ -379,6 +365,115 @@
     </section>
 
 
+    <!-- AUDIENCE -->
+
+    <section class="section audience-section">
+
+      <div class="section-heading audience-heading">
+
+        <div>
+
+          <span class="eyebrow">
+            Audience
+          </span>
+
+          <h2>
+            Age &amp; Gender
+          </h2>
+
+          <p class="section-description">
+            Audience distribution for the selected market, channel and date range
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="audience-grid">
+
+        <article class="audience-card">
+
+          <div class="audience-card-heading">
+
+            <div>
+              <h3>Age Distribution</h3>
+              <p>Share of audience views</p>
+            </div>
+
+          </div>
+
+
+          <div class="audience-chart-container">
+            <canvas id="age-chart"></canvas>
+          </div>
+
+
+          <div class="audience-table-wrap">
+
+            <table class="audience-table">
+
+              <thead>
+                <tr>
+                  <th scope="col">Age Range</th>
+                  <th scope="col">Views</th>
+                  <th scope="col">Clicks</th>
+                  <th scope="col">Conversions</th>
+                </tr>
+              </thead>
+
+              <tbody id="age-table-body"></tbody>
+
+            </table>
+
+          </div>
+
+        </article>
+
+
+        <article class="audience-card">
+
+          <div class="audience-card-heading">
+
+            <div>
+              <h3>Gender Distribution</h3>
+              <p>Share of audience views</p>
+            </div>
+
+          </div>
+
+
+          <div class="audience-chart-container">
+            <canvas id="gender-chart"></canvas>
+          </div>
+
+
+          <div class="audience-table-wrap">
+
+            <table class="audience-table">
+
+              <thead>
+                <tr>
+                  <th scope="col">Gender</th>
+                  <th scope="col">Views</th>
+                  <th scope="col">Clicks</th>
+                  <th scope="col">Conversions</th>
+                </tr>
+              </thead>
+
+              <tbody id="gender-table-body"></tbody>
+
+            </table>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
     <!-- COMING NEXT -->
 
     <section class="section coming-next">
@@ -391,7 +486,6 @@
 
         <span>Channel Performance</span>
         <span>Conversions</span>
-        <span>Audience</span>
         <span>CTV &amp; Video</span>
         <span>Ad Breakdown</span>
         <span>AI Insights</span>
@@ -406,8 +500,8 @@
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <script src="./config.js?v=7"></script>
-  <script src="./app.js?v=7"></script>
+  <script src="./config.js?v=8"></script>
+  <script src="./app.js?v=8"></script>
 
 </body>
 </html>

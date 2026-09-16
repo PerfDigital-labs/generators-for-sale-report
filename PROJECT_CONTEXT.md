@@ -121,6 +121,16 @@ pd-client-analytics.client_reporting.illumin_age_daily
 pd-client-analytics.client_reporting.illumin_gender_daily
 pd-client-analytics.client_reporting.illumin_household_income_daily
 
+Age and gender validation for Generators for Sale:
+
+- No duplicate rows were found at date × advertiser × journey × campaign × dimension grain.
+- Age views reconciled to 99.9955% of authoritative campaign impressions.
+- Gender views reconciled to 99.9953% of authoritative campaign impressions.
+- Audience clicks reconciled exactly to campaign clicks.
+- Age conversions reconciled exactly; gender conversions differed by one.
+- Illumin supplies an explicit Unknown dimension value, which may be displayed as returned.
+- Confirm with Illumin that demographic views may be labeled impressions before changing the client-facing terminology.
+
 CTV:
 pd-client-analytics.client_reporting.illumin_ctv_network_daily
 
@@ -140,6 +150,8 @@ Current payload includes:
 client
 freshness
 campaign_daily
+audience.age_daily
+audience.gender_daily
 
 Campaign rows contain:
 
@@ -182,6 +194,8 @@ start/end date
 executive KPI cards
 performance-over-time chart
 Omaha vs Kansas City section
+age distribution chart and table
+gender distribution chart and table
 Print / Save PDF
 
 Current KPIs include:
